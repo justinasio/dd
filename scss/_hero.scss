@@ -1,0 +1,136 @@
+.hero{
+    overflow: hidden;
+    .grid{
+        position: relative;
+
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: 1fr;
+
+        height: 750px;
+
+        .left{
+            z-index: 1;
+
+            max-width: 764px;
+            span{
+                font-size: 1.75rem;
+                font-weight: bolder;
+            }
+            h1{
+                font-size: 4.25rem;
+                line-height: 4rem + 2rem;
+                color: $primary;
+            }
+            p{
+                font-size: 1.5rem;
+            }
+            button{
+                filter: $shadow;
+                cursor: pointer;
+
+                margin-top: 20px;
+                padding: 15px 25px;
+                
+                font-size: 18px;
+                
+                border-radius: 25px;
+                background: $primary;
+                color: white;
+                font-weight: 500;
+                &:hover{
+                    opacity: 0.8;
+                    transform: all 300ms;
+                }
+            }
+        }
+        .right{  
+            z-index: 0;
+            position: absolute;
+            top: 0;
+            right: -350px;
+            video{
+                width: 1300px;
+                border-radius: 16px;
+
+                mask-image: linear-gradient(to top,    transparent 0%,  black 25%, black 75%, transparent 100%), linear-gradient(to right,  transparent 0%,  black 25%, black 75%, transparent 100%);
+                mask-composite: intersect;
+                
+            }
+        }
+    }
+}
+@media (max-width: 1100px) {
+    .hero{
+        .grid{
+            height: 640px;
+            .left{
+                span{
+                    font-size: 1.5rem
+                }
+                h1{
+                    font-size: 3rem;
+                    line-height: normal;
+                }
+                p{
+                    font-size: 1.2rem;
+
+                    width: 500px;
+                }
+            }
+            .right{
+                right: -350px;
+                video{
+                    width: 1100px;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 770px) {
+    .hero{
+        .grid{
+            margin-bottom: 50px;
+
+            height: 630px;
+
+            align-items: flex-end;
+            text-align: center;
+            .left{
+                span{
+                    font-size: 1rem;
+                }
+                h1{
+                    font-size: 2rem;
+                    line-height: normal;
+                }
+                p{
+                    font-size: 1rem;
+
+                    margin: 0 auto;
+                    width: 375px;
+                }
+                button{
+                    padding: 10px 20px;
+                    margin-top: 10px;
+
+                    font-size: 1rem;
+                    border-radius: 15px;
+                }
+            }
+            .right{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                width: 100%;
+                right: 0;
+                video{
+                    width: 650px;
+                }
+            }
+        }
+    }
+}
