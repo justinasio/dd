@@ -19,6 +19,7 @@
 
 body{
     // background-color: $primary-color;
+        overflow-x: hidden!important;
 }
 img{
     width: 100%;
@@ -111,6 +112,7 @@ header{
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             grid-gap: 20px;
+            overflow: hidden;
             .reviews__item{
                 display: flex;
                 flex-direction: column;
