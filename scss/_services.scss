@@ -1,4 +1,9 @@
 .services{
+    .container{
+        padding: 0;
+    }
+}
+.services{
     position: relative;
 
     background: rgba(255, 255, 255, 0.4);
@@ -9,16 +14,16 @@
 
     padding: 50px 0px;
     .title{
-        padding: 50px 0px;
-        padding-bottom: 100px;
+        padding: 50px 10px;
         text-align: center;
+
         span{
             font-weight: bolder;
             font-size: 1.5rem;
         }
         h2{
             font-size: 3rem;
-            color: #69b97b;
+            color: #00891f;
         }
         p{
             font-size: 1.2rem;
@@ -30,194 +35,263 @@
             border-radius: 15px;
         }
     }
-
-
-
-
-
-.slider {
-position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  bottom: 150px;
-  left: 260px;
-  overflow: hidden;
-  width: 1220px;
-  margin: 0 auto;
-  padding: 40px 0;
-  height: 500px;
-    mask-image: linear-gradient(to right, rgba(0,0,0,0), black 15%, black 85%, rgba(0,0,0,0));
-  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), black 15%, black 85%, rgba(0,0,0,0));
-.slides {
-position: absolute;
-left: 0px;
-
-  display: flex;
-  justify-content: center;
-  transition: transform 0.5s ease;
-  will-change: transform;
-    mask-image: linear-gradient(to right, rgba(0,0,0,0), black 15%, black 85%, rgba(0,0,0,0));
-  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0), black 15%, black 85%, rgba(0,0,0,0));
-  
-
-  .slide {
-    /* Remove fixed flex-basis */ 
-    width: 420px;
-    flex: 0 0 auto;  // width is defined per slide
-    transform: scale(0.75) translateY(10px);
-    transition: all 0.5s ease;
-    text-align: center;
-    background: hsla(0, 0%, 100%, 0.9);
-    backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    padding: 30px 20px;
-    padding-top: 10px;
-    margin: 0 10px;
-    cursor: pointer;
-    z-index: 1;
-            display: flex;
+    .carousel{
+        overflow-x: hidden;
+        position: relative;
+        display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
-        text-align: center;
 
-    &.active {
-      opacity: 1;
-       background: hsl(0, 0%, 100%);
-      transform: scale(1) translateY(0);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-      z-index: 5;
-    }
-    .slide__image{
+        perspective: 1600px;
 
-        width: 120px;
-        height: 120px;
-        padding: 15px;
-                        border-radius: 50%;
-                                    background: lighten($color: $primary, $amount: 60%);
-        img{
-            // position: absolute;
-            
+        width: 100%;
+        height: 660px;
+        .carousel__card{
+            cursor: pointer;
+
+            z-index: 5;
+            position: absolute;
+
+            width: 360px;
+            height: 545px;
+
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            box-shadow: $box-shadow;
+            transition: transform 250ms ease, opacity 250ms ease, background 250ms ease;
+            &.one {
+                transform: translateX(-590px) translateZ(-300px) scale(0.7);
+                opacity: 0.35;
+                z-index: 1;
+            }
+            &.two {
+                transform: translateX(-285px) translateZ(-150px) scale(0.8);
+                opacity: 0.6;
+                z-index: 2;
+            }
+            &.three {
+                cursor: initial;
+                transform: translateX(0px) translateZ(0px) scale(0.9);
+                opacity: 1;
+                z-index: 5;
+                &:hover {
+                    background: rgba(255, 255, 255, 0.8);
+                    transform: translateX(0px) translateZ(0px) scale(1) perspective(1px); // Add a second 'scale' or use 'rotateY' etc.
+                    -webkit-font-smoothing: subpixel-antialiased;
+                }
+            }
+            &.four {
+                transform: translateX(285px) translateZ(-150px) scale(0.8);
+                opacity: 0.6;
+                z-index: 2;
+            }
+            &.five {
+                transform: translateX(590px) translateZ(-300px) scale(0.7);
+                opacity: 0.35;
+                z-index: 1;
+            }
+            &:hover{
+                background: rgba(29, 102, 45, 0.05);
+            }
+            span{
+                font-size: 1rem;
+                font-weight: 500;
+            }
+            .card__image{
+                mask-image: linear-gradient(black 50%, transparent);
+                img{
+                    mask-image: linear-gradient(black 80%, transparent);
+
+                    border-radius: 15px 15px 0px 0px;
+                    transition: border-radius 200ms;
+                }
+            }
+            .card__text{
+                .text__title{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    padding: 0px 10px;
+                    h3{
+                        font-size: 1.3rem;
+                        color: $primary;
+                    }
+                    hr{
+                        width: 50px;
+                        border: 2px solid $primary;
+                        margin: 0px 10px
+                    }
+                }
+                p{
+                    padding: 10px 20px;
+                    font-size: 1rem;
+                    &:last-child{
+                        padding-top: 0px;
+                        padding-bottom: 20px;
+                    }
+                }
+            }
         }
     }
-    h3 {
-      margin: 15px 0 10px;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #333;
-          padding-top: 15px;
+    .carousel__controls{
+        display: flex;
+        justify-content: space-between;
+
+        padding: 0px 10px;
+        .carousel__navigation{
+            cursor: pointer;
+
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            .nav__link{
+                border-bottom: 2px solid transparent;
+                transition: color 200ms, border-bottom 200ms;
+                padding: 0px 1px;
+                &.active {
+                    color: $primary; 
+                    font-weight: 700;
+                    border-bottom: 2px solid $primary; 
+                    padding: 0px;
+                }
+                &:hover{
+                    color: $primary; 
+                }
+            }
+        }
+        .control__button {
+            cursor: pointer;
+            z-index: 2;
+
+            padding: 8px 15px;
+
+            color: white;
+            font-weight: 600;
+            border-radius: 50%;
+            background: lighten($color: $primary, $amount: 45%);
+
+            transition: transform 200ms, background 200ms;
+            &:hover{
+                transform: scale(1.2);
+                background: lighten($color: $primary, $amount: 35%);
+            }
+        }
     }
-
-    p {
-      margin: 0;
-      font-size: 1rem;
-      color: #666;
-      line-height: 1.4;
-      text-align: left;
-
-      padding-top: 10px;
-      &:nth-child(1){
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-}
-
-
-  button.prev,
-  button.next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: #fff;
-    border: none;
-    font-size: 24px;
-    padding: 10px 23px;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 10;
-    border-radius: 50%;
-    &:hover {
-      background: rgba(0,0,0,0.8);
-    }
-  }
-
-  button.prev { left: 10px; }
-  button.next { right: 10px; }
-
-  .pagination {
-    text-align: center;
-    margin-top: 480px;
-
-    .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 5px;
-      background: #ccc;
-      border-radius: 50%;
-      cursor: pointer;
-
-      &.active {
-        background: #333;
-      }
-    }
-  }
-}
-  button.prev,
-  button.next {
-    position: absolute;
-    // top: 95%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: #fff;
-    border: none;
-    font-size: 24px;
-    padding: 10px 23px;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 10;
-    border-radius: 50%;
-    &:hover {
-      background: rgba(0,0,0,0.8);
-    }
-  }
-
-  button.prev { left: 200px; }
-  button.next { right: 200px; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 @media (max-width: 770px) {
     .services{
-        .title{
-            span{
-                font-size: 1.2rem;
+        height: auto;
+        .container{
+            padding: 0;
+            .title{
+                padding: 0 10px;
+                span{
+                    font-size: 1.2rem;
+                }
+                h2{
+                    font-size: 2.6rem;
+                    line-height: 1.15;
+                    padding-bottom: 1rem;
+                }
+                p{
+                    font-size: 0.9rem;
+                }
             }
-            h2{
-                font-size: 2.6rem;
-                line-height: 1.4;
-                padding-bottom: 1rem;
+            .carousel__controls{
+                position: relative;
+
+                align-items: center;
+                margin-top: 15px;
+
+                padding: 0 10px;
+
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                padding-top: 15px;
+                .control__button{
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    top: 70px;
+    
+                    // width: 30px;
+                    // height: 30px;
+
+                    &:first-child{
+                        margin-right: 5px;
+                    }
+                    &:last-child{
+                        margin-left: 5px;
+                    }
+                    &:first-child{
+                        left: 15px;
+                    }
+                    &:last-child{
+                        right: 15px;
+                    }
+                }
+                .carousel__navigation{
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px 15px;
+
+                    width: 100%;
+                    .nav__link{
+                        font-size: 0.9rem;
+                    }
+                }
             }
-            p{
-                font-size: 0.9rem;
+            .carousel{
+                height: 450px;
+                .carousel__card{
+                    width: 280px;
+                    height: 410px;
+                    .card__image{
+
+                    }
+                    .card__text{
+                        span{
+
+                        }
+                        .text__title{
+                            padding: 0;
+                            hr{
+                                width: 23px;
+                            }
+                            h3{
+                                font-size: 1.3rem;
+                            }
+                        }
+                        p{
+                            padding: 5px 10px;
+                            font-size: 0.8rem;
+                        }
+                    }
+                    &.one {
+                        transform: translateX(-590px) translateZ(-300px) scale(0.7);
+                    }
+                    &.two {
+                        transform: translateX(-285px) translateZ(-150px) scale(0.8);
+                    }
+                    &.three {
+                        transform: translateX(0px) translateZ(0px) scale(1);
+                        &:hover {
+                            transform: translateX(0px) translateZ(0px) scale(1) perspective(1px); // Add a second 'scale' or use 'rotateY' etc.
+                        }
+                    }
+                    &.four {
+                        transform: translateX(285px) translateZ(-150px) scale(0.8);
+                    }
+                    &.five {
+                        transform: translateX(590px) translateZ(-300px) scale(0.7);
+                    }
+                }
             }
         }
     }

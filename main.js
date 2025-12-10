@@ -2,81 +2,149 @@ document.querySelector('#menuButton').addEventListener('click', (e) => {
     document.querySelector('#nav').classList.toggle('open');
 });
 
-const slidesContainer = document.querySelector('.slides');
-let slides = Array.from(document.querySelectorAll('.slide'));
-const nextBtn = document.querySelector('.next');
-const prevBtn = document.querySelector('.prev');
-const dots = document.querySelectorAll('.dot');
+document.addEventListener('DOMContentLoaded', () => {
+    // --- ESSENTIAL VARIABLE DEFINITIONS ---
+    const carousel = document.querySelector('.carousel');
+    const cards = Array.from(carousel.querySelectorAll('.carousel__card'));
+    const navLinks = Array.from(document.querySelectorAll('.nav__link'));
 
-const totalSlides = slides.length;
-let currentIndex = totalSlides; // start at middle clone
+    // Select the directional buttons
+    const prevButton = document.querySelector('.control__button.prev');
+    const nextButton = document.querySelector('.control__button.next');
 
-// Clone slides 3x for infinite effect
-slidesContainer.innerHTML = slidesContainer.innerHTML + slidesContainer.innerHTML + slidesContainer.innerHTML;
-slides = Array.from(document.querySelectorAll('.slide'));
+    const CLASSES = ['one', 'two', 'three', 'four', 'five'];
+    const CENTER_CLASS = 'three';
 
-const slideWidth = slides[0].offsetWidth + 20;
-const slider = document.querySelector('.slider');
+    // --- HELPER FUNCTION: Rotate Array ---
+    function rotateArray(arr, count) {
+        const len = arr.length;
+        const normalizedShift = ((count % len) + len) % len;
 
-// initial position
-slidesContainer.style.transform = `translateX(${-currentIndex * slideWidth + slider.offsetWidth / 2 - slideWidth / 2}px)`;
+        const part1 = arr.slice(normalizedShift);
+        const part2 = arr.slice(0, normalizedShift);
 
-// update active slides and dots
-function updateSlides() {
-    slides.forEach((slide) => slide.classList.remove('active'));
-
-    const activeIndex = currentIndex % totalSlides;
-    slides.forEach((slide, i) => {
-        if (i % totalSlides === activeIndex) slide.classList.add('active');
-    });
-
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
-}
-
-// move slider
-function moveTo(index) {
-    currentIndex = index;
-    slidesContainer.style.transition = 'transform 0.5s ease';
-    slidesContainer.style.transform = `translateX(${-currentIndex * slideWidth + slider.offsetWidth / 2 - slideWidth / 2}px)`;
-    updateSlides();
-}
-
-// next/prev buttons
-nextBtn.addEventListener('click', () => moveTo(currentIndex + 1));
-prevBtn.addEventListener('click', () => moveTo(currentIndex - 1));
-
-// dots
-dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-        // choose closest clone to currentIndex
-        const candidates = [i, i + totalSlides, i + 2 * totalSlides];
-        let nearest = candidates.reduce((prev, curr) => (Math.abs(curr - currentIndex) < Math.abs(prev - currentIndex) ? curr : prev));
-        moveTo(nearest);
-    });
-});
-
-// clickable slides
-slides.forEach((slide, i) => {
-    slide.addEventListener('click', () => {
-        const logicalIndex = i % totalSlides;
-        const candidates = [logicalIndex, logicalIndex + totalSlides, logicalIndex + 2 * totalSlides];
-        let nearest = candidates.reduce((prev, curr) => (Math.abs(curr - currentIndex) < Math.abs(prev - currentIndex) ? curr : prev));
-        moveTo(nearest);
-    });
-});
-
-// reset position after transition if crossed clone boundaries
-slidesContainer.addEventListener('transitionend', () => {
-    if (currentIndex >= totalSlides * 2) {
-        currentIndex -= totalSlides;
-        slidesContainer.style.transition = 'none';
-        slidesContainer.style.transform = `translateX(${-currentIndex * slideWidth + slider.offsetWidth / 2 - slideWidth / 2}px)`;
-    } else if (currentIndex < totalSlides) {
-        currentIndex += totalSlides;
-        slidesContainer.style.transition = 'none';
-        slidesContainer.style.transform = `translateX(${-currentIndex * slideWidth + slider.offsetWidth / 2 - slideWidth / 2}px)`;
+        return [...part1, ...part2];
     }
-});
 
-// initialize
-updateSlides();
+    // --- HELPER FUNCTION: Update Navigation Links & Button Colors ---
+    function updateActiveLink(centeredCardPermanentIndex) {
+        navLinks.forEach((link) => link.classList.remove('active'));
+
+        const activeLink = navLinks.find((link) => link.dataset.permanentIndex === String(centeredCardPermanentIndex));
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+
+    // --- CORE FUNCTION: Apply Rotation and Updates ---
+    function rotateCarousel(shift) {
+        const newClasses = rotateArray(CLASSES, shift);
+        let centeredCardPermanentIndex = -1;
+
+        cards.forEach((card) => {
+            let oldClass;
+
+            // 1. Find and remove the card's current positional class
+            for (const cls of CLASSES) {
+                if (card.classList.contains(cls)) {
+                    oldClass = cls;
+                    card.classList.remove(cls);
+                    break;
+                }
+            }
+
+            if (oldClass) {
+                const oldClassIndex = newClasses.indexOf(oldClass);
+                const newClass = CLASSES[oldClassIndex];
+
+                void card.offsetHeight; // Reflow fix
+                card.classList.add(newClass);
+
+                // 3. Update ARIA attributes
+                const pos = CLASSES.indexOf(newClass) + 1;
+                card.setAttribute('aria-posintext', pos);
+
+                if (newClass === CENTER_CLASS) {
+                    card.setAttribute('aria-hidden', 'false');
+                    centeredCardPermanentIndex = parseInt(card.dataset.permanentIndex);
+                } else {
+                    card.setAttribute('aria-hidden', 'true');
+                }
+            }
+        });
+
+        // 4. Update all visual indicators
+        if (centeredCardPermanentIndex !== -1) {
+            updateActiveLink(centeredCardPermanentIndex);
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // --- EVENT HANDLERS ---
+    // ------------------------------------------------------------------
+
+    // 1. CARD CLICK HANDLER (Unchanged)
+    carousel.addEventListener('click', (event) => {
+        const clickedCard = event.target.closest('.carousel__card');
+        if (!clickedCard || clickedCard.classList.contains(CENTER_CLASS)) return;
+
+        let currentClass;
+        for (const cls of CLASSES) {
+            if (clickedCard.classList.contains(cls)) {
+                currentClass = cls;
+                break;
+            }
+        }
+        if (!currentClass) return;
+
+        const currentPositionIndex = CLASSES.indexOf(currentClass);
+        const centerIndex = CLASSES.indexOf(CENTER_CLASS);
+        const shift = -(centerIndex - currentPositionIndex);
+        rotateCarousel(shift);
+    });
+
+    // 2. NAVIGATION LINK CLICK HANDLER (FIXED for reliable click on LI)
+    navLinks.forEach((clickedLink) => {
+        clickedLink.addEventListener('click', () => {
+            if (clickedLink.classList.contains('active')) return;
+
+            const targetPermanentIndex = parseInt(clickedLink.dataset.permanentIndex);
+            const cardToCenter = cards.find((card) => parseInt(card.dataset.permanentIndex) === targetPermanentIndex);
+
+            if (!cardToCenter) return;
+
+            let currentClass;
+            for (const cls of CLASSES) {
+                if (cardToCenter.classList.contains(cls)) {
+                    currentClass = cls;
+                    break;
+                }
+            }
+            if (!currentClass) return;
+
+            const currentPositionIndex = CLASSES.indexOf(currentClass);
+            const centerIndex = CLASSES.indexOf(CENTER_CLASS);
+            const shift = -(centerIndex - currentPositionIndex);
+
+            rotateCarousel(shift);
+        });
+    });
+
+    // 3. DIRECTIONAL BUTTONS HANDLER (FIXED: Checks if elements exist before listening)
+
+    if (nextButton) {
+        nextButton.addEventListener('click', () => {
+            rotateCarousel(-1); // Shift left
+        });
+    }
+
+    if (prevButton) {
+        prevButton.addEventListener('click', () => {
+            rotateCarousel(1); // Shift right
+        });
+    }
+
+    // --- INITIALIZATION ---
+    // Sets the initial active link and button color
+    updateActiveLink(3);
+});
