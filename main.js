@@ -3,19 +3,16 @@ document.querySelector('#menuButton').addEventListener('click', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- ESSENTIAL VARIABLE DEFINITIONS ---
     const carousel = document.querySelector('.carousel');
     const cards = Array.from(carousel.querySelectorAll('.carousel__card'));
     const navLinks = Array.from(document.querySelectorAll('.nav__link'));
 
-    // Select the directional buttons
     const prevButton = document.querySelector('.control__button.prev');
     const nextButton = document.querySelector('.control__button.next');
 
     const CLASSES = ['one', 'two', 'three', 'four', 'five'];
     const CENTER_CLASS = 'three';
 
-    // --- HELPER FUNCTION: Rotate Array ---
     function rotateArray(arr, count) {
         const len = arr.length;
         const normalizedShift = ((count % len) + len) % len;
@@ -26,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return [...part1, ...part2];
     }
 
-    // --- HELPER FUNCTION: Update Navigation Links & Button Colors ---
     function updateActiveLink(centeredCardPermanentIndex) {
         navLinks.forEach((link) => link.classList.remove('active'));
 
@@ -36,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- CORE FUNCTION: Apply Rotation and Updates ---
     function rotateCarousel(shift) {
         const newClasses = rotateArray(CLASSES, shift);
         let centeredCardPermanentIndex = -1;
@@ -44,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach((card) => {
             let oldClass;
 
-            // 1. Find and remove the card's current positional class
             for (const cls of CLASSES) {
                 if (card.classList.contains(cls)) {
                     oldClass = cls;
@@ -57,10 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const oldClassIndex = newClasses.indexOf(oldClass);
                 const newClass = CLASSES[oldClassIndex];
 
-                void card.offsetHeight; // Reflow fix
+                void card.offsetHeight;
                 card.classList.add(newClass);
 
-                // 3. Update ARIA attributes
                 const pos = CLASSES.indexOf(newClass) + 1;
                 card.setAttribute('aria-posintext', pos);
 
@@ -73,17 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // 4. Update all visual indicators
         if (centeredCardPermanentIndex !== -1) {
             updateActiveLink(centeredCardPermanentIndex);
         }
     }
 
-    // ------------------------------------------------------------------
-    // --- EVENT HANDLERS ---
-    // ------------------------------------------------------------------
-
-    // 1. CARD CLICK HANDLER (Unchanged)
     carousel.addEventListener('click', (event) => {
         const clickedCard = event.target.closest('.carousel__card');
         if (!clickedCard || clickedCard.classList.contains(CENTER_CLASS)) return;
@@ -103,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         rotateCarousel(shift);
     });
 
-    // 2. NAVIGATION LINK CLICK HANDLER (FIXED for reliable click on LI)
     navLinks.forEach((clickedLink) => {
         clickedLink.addEventListener('click', () => {
             if (clickedLink.classList.contains('active')) return;
@@ -130,21 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. DIRECTIONAL BUTTONS HANDLER (FIXED: Checks if elements exist before listening)
-
     if (nextButton) {
         nextButton.addEventListener('click', () => {
-            rotateCarousel(-1); // Shift left
+            rotateCarousel(-1);
         });
     }
 
     if (prevButton) {
         prevButton.addEventListener('click', () => {
-            rotateCarousel(1); // Shift right
+            rotateCarousel(1);
         });
     }
 
-    // --- INITIALIZATION ---
-    // Sets the initial active link and button color
     updateActiveLink(3);
 });
