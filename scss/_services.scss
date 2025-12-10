@@ -212,27 +212,7 @@
                 border-top: 1px solid rgba(0, 0, 0, 0.1);
                 padding-top: 15px;
                 .control__button{
-                    position: absolute;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    top: 70px;
-    
-                    // width: 30px;
-                    // height: 30px;
-
-                    &:first-child{
-                        margin-right: 5px;
-                    }
-                    &:last-child{
-                        margin-left: 5px;
-                    }
-                    &:first-child{
-                        left: 15px;
-                    }
-                    &:last-child{
-                        right: 15px;
-                    }
+                    display: none;
                 }
                 .carousel__navigation{
                     flex-direction: row;
@@ -251,7 +231,9 @@
                 height: 450px;
                 .carousel__card{
                     width: 280px;
-                    height: 410px;
+                    height: auto;
+                    padding-bottom: 10px;
+                    
                     .card__image{
 
                     }
