@@ -5,7 +5,7 @@
     backdrop-filter: blur(20px);
     padding-top: 50px;
 
-    height: 400px;
+    height: auto;
     .container{
         .title{
             padding: 50px 10px;
@@ -23,6 +23,106 @@
                 font-size: 1.2rem;
             }
         }
+        .grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 40px;
+
+            padding-bottom: 100px;
+
+            .grid__iframe{
+                position: relative;
+                padding-bottom: 56.25%;
+                padding-top: 25px;
+                height: 550px;
+                iframe{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    filter: $shadow;
+                    border-radius: 15px;
+                    transition: transform 200ms;
+                    &:hover{
+                        transform: scale(1.01);
+                    } 
+                }
+            }
+            .grid__items{
+                .items__list{
+                    columns: 2;
+                    column-gap: 20px;
+                    .list__item{
+                        break-inside: avoid;
+                        margin-bottom: 20px;
+                        // padding: 20px;
+
+                        // background: rgba(255, 255, 255, 0.4);
+                        backdrop-filter: blur(20px);
+                        box-shadow: $box-shadow;
+                        border-radius: 15px;
+                        transition: transform 200ms, background 200ms;
+                        &:hover{
+                            transform: scale(1.1);
+                            background: rgba(255, 255, 255, 0.7);
+                        }
+                        // &:nth-child(3){
+                        //     width: 300px;
+                        // }
+                        // &:nth-child(2){
+                        //     max-width: 250px;
+                        //     height: 125px;
+                        // }
+                        // &:nth-child(4){
+                        //     height: 125px;
+                        // }
+                        .item__title{
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+
+                            background: rgba(255, 255, 255, 0.5);
+                            padding: 10px 20px;
+                            border-radius: 15px 15px 0px 0px;
+                            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                            svg{
+                                padding: 8px;
+
+                                height: 40px;
+                                width: 40px;
+                                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+
+                                background: rgba(56, 241, 96, 0.05);
+                                border-radius: 50%;
+                            }
+                            h3{
+                                // margin-left: 20px;
+                                font-size: 1.4rem;
+                                font-weight: 600;
+                                color: #00891f;
+                            }
+                        }
+                        .item__description{
+                            padding: 20px;
+                            p{
+
+                                width: 100%;
+                                a{
+                                    &:hover{
+                                        text-decoration: underline;
+                                    }
+                                }
+                                span{
+                                    position: absolute;
+                                    right: 10px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -30,7 +130,6 @@
     .contact{
         height: auto;
         .container{
-            padding: 0;
             .title{
                 padding: 0 10px;
                 span{
