@@ -228,10 +228,13 @@
                 }
             }
             .carousel{
+                margin-top: 20px;
+
                 height: 450px;
                 .carousel__card{
                     width: 260px;
                     height: auto;
+                    min-height: 410px;
                     padding-bottom: 10px;
 
                     .card__image{

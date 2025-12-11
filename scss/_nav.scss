@@ -1,8 +1,10 @@
 .nav{
     display: flex;
+    white-space: nowrap;
+
     align-items: center;
 
-    padding: 0 20px;
+    padding: 0 40px;
     margin: 0 auto;
 
     width: 1220px + 200px;
@@ -24,7 +26,7 @@
         .list__item{
             padding: 0px 40px;
             &:last-child{
-                padding-right: 0px;
+                // padding-right: 0px;
             }
             &.split{
                 margin-left: auto;
@@ -35,6 +37,9 @@
                 white-space: nowrap
             }
         }
+    }
+    .nav__phone{
+        padding-left: 40px;
     }
     .nav__menu{
         display: none;
@@ -48,15 +53,21 @@
                 padding: 0 20px;
             }
         }
+        .nav__phone{
+            padding-left: 20px;
+        }
     }
 }
 @media (max-width: 940px) {
     .nav{
-        padding: 0 10px;
+        padding: 0 20px;
         .nav__list{
             .list__item{
                 padding: 0 10px;
             }
+        }
+        .nav__phone{
+            padding-left: 10px;
         }
     }
 }
@@ -75,25 +86,17 @@
                 width: 0px;
 
                 transform: scale(0);
-                &.phone{
-                    display: block;
-                    position: absolute;
-                    top: 27.5px;
-                    right: 50px;
-
-                    transform: initial;
-                    width: initial;
-                }
-                .item__link{
-
-                }
             }
+        }
+        .nav__phone{
+            position: absolute;
+            right: 70px;
         }
         .nav__menu{
             display: initial;
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 25px;
+            right: 20px;
             button{
                 cursor: pointer;
 
@@ -104,6 +107,63 @@
 
                 background: none;
                 border: none;
+            }
+        }
+        .nav__menu{
+            display: initial;
+            button{
+                cursor: pointer;
+
+                margin-left: 10px; 
+                background: none;
+                border: none;
+                padding: 0;
+                
+                width: 35px;
+                height: 35px;
+                display: block; 
+                position: relative;
+                span {
+                    display: block;
+                    width: 35px;
+                    height: 5px; 
+                    background-color: #333;
+                    border-radius: 3px;
+                    transition: all 0.3s ease-in-out;
+                    position: absolute;
+                    left: 0;
+                    transform-origin: 50% 50%;
+                    &:nth-child(1) {
+                         top: 0px;
+                    }
+                    &:nth-child(2) { 
+                        top: 11.5px; 
+                    }
+                    &:nth-child(3) {
+                        top: 23px; 
+                    }
+                }
+            }
+        }
+        &.open{
+            .nav__logo, .nav__phone, .nav__menu {
+                height: 80px;
+                display: flex;
+                align-items: center;
+            }
+            .nav__list{
+                max-height: 400px; 
+                padding-bottom: 10px;
+            }
+            .nav__menu button span:nth-child(1) {
+                transform: translateY(11.5px) rotate(45deg);
+            }
+            .nav__menu button span:nth-child(2) {
+                opacity: 0;
+                transform: scaleX(0); 
+            }
+            .nav__menu button span:nth-child(3) {
+                transform: translateY(-11.5px) rotate(-45deg);
             }
         }
         &.open{
@@ -136,19 +196,14 @@
                     &.split{
                         margin-left: initial;
                     }
-                    &.phone{
-                        padding: 0px;
-                    }
                     .item__link{
                         
                     }
                 }
             }
             .nav__menu{
-                button{
-
-                }
+                display: initial;
             }
         }
-    }
+    }  
 }

@@ -23,7 +23,7 @@
         .google__review{
             position: absolute;
             top: 175px;
-            right: 20px;
+            right: 40px;
             transition: filter 200ms;
             .review__image{
                 
@@ -140,12 +140,12 @@
 
 @media (max-width: 770px) {
     .reviews{
-        padding-bottom: 75px;
+        padding-bottom: 50px;
         height: auto;
         .container{
             .title{
                 padding: 0px 10px;
-                padding-top: 75px;
+                padding-top: 50px;
                 span{
                     font-size: 1rem;
                 }
