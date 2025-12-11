@@ -1,6 +1,12 @@
 document.querySelector('#menuButton').addEventListener('click', (e) => {
     document.querySelector('#nav').classList.toggle('open');
 });
+document.querySelector('.nav__list').addEventListener('click', (e) => {
+    if (!document.querySelector('#nav').classList.contains('open')) return;
+    if (e.target.classList.contains('item__link')) {
+        document.querySelector('#nav').classList.toggle('open');
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('.carousel');
