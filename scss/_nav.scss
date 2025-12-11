@@ -90,12 +90,12 @@
         }
         .nav__phone{
             position: absolute;
-            right: 70px;
+            right: 75px;
         }
         .nav__menu{
             display: initial;
             position: absolute;
-            top: 25px;
+            top: 30px;
             right: 20px;
             button{
                 cursor: pointer;
@@ -119,14 +119,14 @@
                 border: none;
                 padding: 0;
                 
-                width: 35px;
-                height: 35px;
+                width: 28px;
+                height: 28px;
                 display: block; 
                 position: relative;
                 span {
                     display: block;
-                    width: 35px;
-                    height: 5px; 
+                    width: 28px;
+                    height: 4px; 
                     background-color: #333;
                     border-radius: 3px;
                     transition: all 0.3s ease-in-out;
@@ -137,10 +137,10 @@
                          top: 0px;
                     }
                     &:nth-child(2) { 
-                        top: 11.5px; 
+                        top: 8px; 
                     }
                     &:nth-child(3) {
-                        top: 23px; 
+                        top: 16px; 
                     }
                 }
             }
@@ -155,15 +155,17 @@
                 max-height: 400px; 
                 padding-bottom: 10px;
             }
+            .nav__menu{
+            }
             .nav__menu button span:nth-child(1) {
-                transform: translateY(11.5px) rotate(45deg);
+                transform: translateY(8px) rotate(45deg);
             }
             .nav__menu button span:nth-child(2) {
                 opacity: 0;
                 transform: scaleX(0); 
             }
             .nav__menu button span:nth-child(3) {
-                transform: translateY(-11.5px) rotate(-45deg);
+                transform: translateY(-9px) rotate(-45deg);
             }
         }
         &.open{
