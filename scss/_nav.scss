@@ -34,7 +34,12 @@
             .item__link{
                 font-size: 0.875rem;
                 font-weight: 500;
-                white-space: nowrap
+                white-space: nowrap;
+
+                transition: color 200ms;
+                &:hover{
+                    color: $primary;
+                }
             }
         }
     }

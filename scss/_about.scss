@@ -1,15 +1,17 @@
 .about{
     position: relative;
-
-    padding: 150px 0px;
+    .container{
+        position: relative;
+        padding-top: 150px;
+        padding-bottom: 150px;
+    }
     .background{
         z-index: -1;
         position: absolute;
-        top: 0;
+        bottom: 0;
         right: 0;
 
-
-        opacity: 0.1;
+        opacity: 0.05;
         
         overflow-x: hidden;
     }
@@ -48,8 +50,10 @@
 
 @media(max-width: 1100px) {
     .about{
-        padding-top: 50px;
-        padding-bottom: 25px;
+        .container{
+            padding-top: 50px;
+            padding-bottom: 25px;
+        }
         .background{
             top: 0;
         }

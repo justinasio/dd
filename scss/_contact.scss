@@ -26,7 +26,7 @@
         .grid{
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-gap: 40px;
+            grid-gap: 20px;
 
             padding-bottom: 100px;
 
@@ -45,7 +45,7 @@
                     border-radius: 15px;
                     transition: transform 200ms;
                     &:hover{
-                        transform: scale(1.01);
+                        transform: scale(1.025);
                     } 
                 }
             }
@@ -54,6 +54,8 @@
                     columns: 2;
                     column-gap: 20px;
                     .list__item{
+                        position: relative;
+
                         break-inside: avoid;
                         margin-bottom: 20px;
                         // padding: 20px;
@@ -64,7 +66,7 @@
                         border-radius: 15px;
                         transition: transform 200ms, background 200ms;
                         &:hover{
-                            transform: scale(1.1);
+                            transform: scale(1.05);
                             background: rgba(255, 255, 255, 0.7);
                         }
                         // &:nth-child(3){
@@ -125,7 +127,33 @@
         }
     }
 }
-
+@media(max-width: 1100px) {
+    .contact{
+        .container{
+            .grid{
+                display: grid;
+                grid-template-columns: 1fr;
+                .grid__iframe{
+                    order: 1;
+                    iframe{
+                        &:hover{
+                            transform: scale(1.0125);
+                        }
+                    }
+                }
+                .grid__items{
+                    .items__list{
+                        .list__item{
+                            &:hover{
+                                transform: scale(1.025);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 @media (max-width: 770px) {
     .contact{
         height: auto;
@@ -142,6 +170,28 @@
                 }
                 p{
                     font-size: 0.9rem;
+                }
+            }
+            .grid{
+                grid-gap: 10px;
+                margin-top: 50px;
+                padding-bottom: 50px;
+                .grid__iframe{
+                    // order: initial;
+                    height: 150px;
+                    iframe{
+                        &:hover{
+                            transform: scale(1.025);
+                        }
+                    }
+                }
+                .grid__items{
+                    .items__list{
+                        columns: 1;
+                        .list__item{
+                            margin-bottom: 10px;
+                        }
+                    }
                 }
             }
         }

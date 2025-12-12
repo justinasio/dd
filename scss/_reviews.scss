@@ -2,9 +2,9 @@
     position: relative;
 
     height: auto;
-    padding-bottom: 150px;
     .container{
         position: relative;
+        padding-bottom: 150px;
         .title{
             padding-top: 150px;
             span{
@@ -96,12 +96,24 @@
                     position: absolute;
                     bottom: 0;
                     left: 0;
+                    
 
                     padding: 20px;
 
                     opacity: 0.025;
                 }
             }
+        }
+        .background{
+            z-index: -1;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 700px;
+
+            opacity: 0.05;
+            
+            overflow-x: hidden;
         }
     }
 }
@@ -140,9 +152,9 @@
 
 @media (max-width: 770px) {
     .reviews{
-        padding-bottom: 50px;
         height: auto;
         .container{
+            padding-bottom: 50px;
             .title{
                 padding: 0px 10px;
                 padding-top: 50px;

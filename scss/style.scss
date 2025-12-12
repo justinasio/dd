@@ -45,6 +45,7 @@ button{
 
     max-width: 1320px;
 }
+
 header{
     z-index: 10;
     position: fixed;
@@ -61,7 +62,20 @@ header{
     background: rgba(255, 255, 255, 0.22);
     backdrop-filter: blur(20px);
 }
+footer{
+    padding: 20px 0px;
+    text-align: center;
+    font-weight: 500;
+
+    background: rgba(255, 255, 255, 0.52);
+    backdrop-filter: blur(20px);
+    box-shadow: -2px -2px 10px rgba(0, 0, 0, 0.05);
+    p{
+        color: black;
+    }
+}
 img{
+    user-select: none;
     pointer-events: none; 
 }
 
